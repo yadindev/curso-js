@@ -6,6 +6,7 @@ import scrollTopBtn from "./btn-scoll.js";
 import darkMode from "./tema-oscuro.js";
 import responsiveMedia from "./objeto-responsive.js";
 import responsiveTester from "./prueba-responsive.js";
+import userDeviceInfo from "./deteccion-dispositivos.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -31,7 +32,9 @@ d.addEventListener("DOMContentLoaded", (e) => {
     `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d229.58580363605358!2d-82.28966547850362!3d22.973312685056023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88cd63d7280f2557%3A0x22cb1662acc7ed55!2sIglesia%20palotinos%20Managua!5e0!3m2!1ses-419!2scu!4v1673122368732!5m2!1ses-419!2scu" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
   );
   responsiveTester("responsive-tester");
+  userDeviceInfo("user-device");
 });
+
 d.addEventListener("keydown", (e) => {
   shortcuts(e);
   moveBall(e, ".ball", ".stage");
