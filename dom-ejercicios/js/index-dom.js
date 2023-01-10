@@ -7,6 +7,7 @@ import darkMode from "./tema-oscuro.js";
 import responsiveMedia from "./objeto-responsive.js";
 import responsiveTester from "./prueba-responsive.js";
 import userDeviceInfo from "./deteccion-dispositivos.js";
+import networkStatus from "./deteccion-red.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -40,3 +41,4 @@ d.addEventListener("keydown", (e) => {
   moveBall(e, ".ball", ".stage");
 });
 darkMode(".dark-mode-btn", "dark-mode");
+networkStatus();
