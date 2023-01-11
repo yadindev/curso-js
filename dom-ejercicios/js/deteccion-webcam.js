@@ -20,7 +20,7 @@ export default function webCam(id) {
           </p>`
         );
 
-        console.log(`Error no se pudo uniciar la camara: ${err}`);
+        // console.log(`Error no se pudo uniciar la camara: ${err}`);
       });
   }
 }

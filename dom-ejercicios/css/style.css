@@ -59,6 +59,7 @@ img {
 }
 
 .panel {
+  overflow-y: auto;
   position: fixed;
   z-index: 998;
   top: 0;
