@@ -56,7 +56,6 @@ img {
   max-width: var(--container-width);
   min-width: 100vh;
   text-align: center;
-  height: 50rem;
 }
 
 .panel {
@@ -331,5 +330,9 @@ img {
   .scroll-top-btn {
     right: initial;
     left: calc(4.25rem + 1vw);
+  }
+
+  video {
+    max-height: 90vh;
   }
 }
