@@ -16,6 +16,7 @@ import slider from "./carrusel.js";
 import scrollSpy from "./scroll-spy.js";
 import smartVideo from "./video-inteligente.js";
 import constactFormValidations from "./validaciones-formularios.js";
+import speechReader from "./narrador.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -58,3 +59,4 @@ d.addEventListener("keydown", (e) => {
 });
 darkMode(".dark-mode-btn", "dark-mode");
 networkStatus();
+speechReader();
