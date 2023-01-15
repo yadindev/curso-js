@@ -37,7 +37,7 @@
       <a href="#section11" data-scroll-spy>Sorteo</a>
       <a href="#section12" data-scroll-spy>Responsive Slider</a>
       <a href="#section13" data-scroll-spy>Video Inteligente</a>
-      <a href="#section14" data-scroll-spy>Sección 14 </a>
+      <a href="#section14" data-scroll-spy>Validaciones de Formulario</a>
       <a href="#section15" data-scroll-spy>Sección 15 </a>
     </nav>
   </aside>
@@ -199,7 +199,22 @@
     </section>
     <section id="section14" class="section" data-scroll-spy>
       <h3>Seccíon 14</h3>
-      <h2></h2>
+      <h2>Validaciones de Formulario</h2>
+      <form class="contact-form">
+        <legend>Envianos tus comentarios</legend>
+        <input type="text" name="name" placeholder="Escribe tu nombre"
+          title="El nombre solo acepta letras y espacios en blanco" required pattern="^[A-Za-zÑñÁáÉéÍíÓóÚú\s]+$">
+        <input type="email" name="email" required placeholder="Ingrese un correo" title="Email Incorrecto"
+          pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[_a-z0-9-]+)*(\.[a-z]{2,15})$">
+        <input type="text" name="subjet" placeholder="Asunto a tratar" required title="El asunto es requerido">
+        <textarea name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios" data-pattern="^.{1,255}$"
+          required title="Tu comentario no debe exceder 255 caracteres"></textarea>
+        <input type="submit" value="Enviar">
+        <div class="contact-form-loader none"><img src="./assets/ball-triangle.svg" alt="Cargando..."></div>
+        <div class="contact-form-response none">
+          <p>Los datos han sido enviados</p>
+        </div>
+      </form>
     </section>
     <section id="section15" class="section" data-scroll-spy>
       <h3>Seccíon 15</h3>
