@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRUD API REST AJAX</title>
+  <title>CRUD API REST FETCH</title>
 </head>
 
 <body>
 
-  <h1>CRUD API REST AJAX</h1>
+  <h1>CRUD API REST FETCH</h1>
 
   <section class="crud">
     <article>
@@ -21,7 +21,7 @@
         <input type="text" name="constelacion" placeholder="constelacion" required>
         <br>
         <input type="submit" value="Enviar">
-        <input type="hidden" name="action">
+        <input type="hidden" name="id">
       </form>
     </article>
     <article>
@@ -58,6 +58,138 @@
       $title = d.querySelector('.crud-title'),
       $template = d.getElementById('crud-template').content,
       $fragment = d.createDocumentFragment()
+
+    const getAllSaint = async () => {
+      try {
+        let res = await fetch('http://localhost:5555/santos')
+        json = await res.json()
+        console.log(json);
+
+        json.forEach(el => {
+          $template.querySelector('.name').textContent = el.nombre;
+          $template.querySelector('.constellation').textContent = el.constelacion;
+          $template.querySelector('.edit').dataset.id = el.id
+          $template.querySelector('.edit').dataset.name = el.nombre
+          $template.querySelector('.edit').dataset.constallation = el.constelacion
+          $template.querySelector('.delete').dataset.id = el.id
+
+          let $clone = d.importNode($template, true)
+          $fragment.appendChild($clone)
+
+        });
+        $table.querySelector('tbody').appendChild($fragment)
+
+        if (!res.ok) throw {
+          status: res.status,
+          statusText: res.statusText
+        }
+      } catch (err) {
+        let message = err.statusText || 'Ocurrio un error'
+
+        $table.insertAdjacentHTML('afterend', `<p><b>${err.status}: ${err.message}</b></p>`)
+      }
+    }
+    d.addEventListener('DOMContentLoaded', getAllSaint)
+
+    d.addEventListener('submit', async e => {
+      if (e.target === $form) {
+        e.preventDefault()
+
+        if (!e.target.id.value) {
+          //POST - CREATE
+          try {
+            let options = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              },
+              body: JSON.stringify({
+                nombre: e.target.nombre.value,
+                constelacion: e.target.constelacion.value
+              })
+            },
+              res = await fetch('http://localhost:5555/santos', options),
+              json = await res.json()
+            location.reload()
+
+            if (!res.ok) throw { status: res.status, statusText: res.statusText }
+
+          } catch (err) {
+
+            let message = err.statusText || 'Ocurrio un error'
+            $form.insertAdjacentHTML('afterend', `<p><b>${err.status}: ${err.message}</b></p>`)
+          }
+        } else {
+          //PUT - UPDATE
+          try {
+            let options = {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              },
+              body: JSON.stringify({
+                nombre: e.target.nombre.value,
+                constelacion: e.target.constelacion.value
+              })
+            },
+              res = await fetch(`http://localhost:5555/santos/${e.target.id.value}`, options),
+              json = await res.json()
+
+
+            if (!res.ok) throw { status: res.status, statusText: res.statusText }
+            location.reload()
+          } catch (err) {
+
+            let message = err.statusText || 'Ocurrio un error'
+            $form.insertAdjacentHTML('afterend', `<p><b>${err.status}: ${err.message}</b></p>`)
+          }
+        }
+      }
+    })
+
+    d.addEventListener('click', async e => {
+      if (e.target.matches(".edit")) {
+        $title.textContent = "Editar Santo";
+        $form.nombre.value = e.target.dataset.name
+        $form.constelacion.value = e.target.dataset.constallation
+        $form.id.value = e.target.dataset.id
+      }
+      if (e.target.matches(".delete")) {
+        let isDelete = confirm(`¿Estas seguro de eliminar el id ${e.target.dataset.id}?`)
+        if (isDelete) {
+          // ajax({
+          //   url: `http://localhost:5555/santos/${e.target.dataset.id}`,
+          //   method: "DELETE",
+          //   success: (res) => {
+          //     location.reload()
+          //   },
+          //   error: (err) => {
+          //     $form.insertAdjacentHTML('afterend', `<p><b>${err}</b></p>`)
+          //   }
+
+          // })
+          try {
+            let options = {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              },
+            },
+              res = await fetch(`http://localhost:5555/santos/${e.target.dataset.id}`, options),
+              json = await res.json()
+
+
+            if (!res.ok) throw { status: res.status, statusText: res.statusText }
+            location.reload()
+          } catch (err) {
+
+            let message = err.statusText || 'Ocurrio un error'
+            $form.insertAdjacentHTML('afterend', `<p><b>${err.status}: ${err.message}</b></p>`)
+          }
+
+        }
+      }
+    })
   </script>
 </body>
 
